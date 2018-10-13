@@ -4,39 +4,34 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 public class Main {
-//    static class MyRunnableClass implements Runnable {
-//        @Override
-//        public void run() {
-//            for (int i = 0; i < 10; i++) {
-//                try {
-//                    Thread.sleep(100);
-//                    System.out.println("new thread: " + i);
-//                } catch (InterruptedException e) {
-//                    e.printStackTrace();
-//                }
-//            }
-//        }
-//    }
-    public static void method1() {
-        ExecutorService executorService = Executors.newSingleThreadExecutor();
+
+    public static void main(String[] args) {
+        ExecutorService executorService = Executors.newCachedThreadPool();
         executorService.execute(new Runnable() {
             public void run() {
                 for (int i = 0; i < 100; i++) {
-//                    try {
-//                        Thread.sleep(100);
-                        System.out.println("new thread: " + i);
-//                    } catch (InterruptedException e) {
-//                        e.printStackTrace();
-//                    }
+                    System.out.println("new thread: " + i);
+                }
+            }
+        });
+        //executorService.shutdown();
+
+        executorService.execute(new Runnable() {
+            public void run() {
+                for (int i = 100; i < 200; i++) {
+                    System.out.println("new thread: " + i);
+                }
+            }
+        });
+        //executorService.shutdown();
+
+        executorService.execute(new Runnable() {
+            public void run() {
+                for (int i = 200; i < 300; i++) {
+                    System.out.println("new thread: " + i);
                 }
             }
         });
         executorService.shutdown();
-    }
-
-    public static void main(String[] args) {
-        method1();
-        method1();
-        method1();
     }
 }
